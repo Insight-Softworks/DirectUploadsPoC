@@ -58,7 +58,7 @@ export default class Api {
         onProgress(e.loaded, e.total);
       };
       xhr.send({
-        uri: attachment.file.sourceURL,
+        uri: attachment.file.sourceURL ?? attachment.file.path,
         type: attachment.file.mime,
         name: attachment.file.filename || Date.now().toString(),
       });
