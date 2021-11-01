@@ -65,13 +65,13 @@ export default class Api {
     });
   }
 
-  async createReceipt(receipt: IReceipt): Promise<number> {
-    const result = await axios.post(`${apiBase}/receipts`, {receipt});
+  async directUploads(blob: IBlob): Promise<number> {
+    const result = await axios.post(`${apiBase}/direct_uploads`, {blob});
     return result.data;
   }
 
-  async directUploads(blob: IBlob): Promise<number> {
-    const result = await axios.post(`${apiBase}/direct_uploads`, {blob});
+  async createReceipt(receipt: IReceipt): Promise<number> {
+    const result = await axios.post(`${apiBase}/receipts`, {receipt});
     return result.data;
   }
 }
