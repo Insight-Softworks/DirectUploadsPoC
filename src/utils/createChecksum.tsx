@@ -48,12 +48,5 @@ export const openImageLibrary = async () => {
     }),
   );
 
-  const receipt = {
-    title: 'Receipt Title',
-    description: 'Receipt Description',
-    amount: 200,
-    images: signedIds,
-  };
-  const createdReceipt = await api.createReceipt(receipt);
-  console.log(createdReceipt);
+  return signedIds;
 };

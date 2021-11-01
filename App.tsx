@@ -8,7 +8,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -29,6 +29,10 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import {openImageLibrary} from './src/utils/createChecksum';
+
+import Api from './src/services/api';
+
+const api = new Api();
 
 const Section: React.FC<{
   title: string;
@@ -65,6 +69,24 @@ const App = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const [signedIds, setSignedIds] = useState();
+
+  const handleSelectPhotos = async () => {
+    const newSignedIds = await openImageLibrary();
+    setSignedIds(newSignedIds);
+  };
+
+  const handleCreateReceipt = async () => {
+    const receipt = {
+      title: 'Receipt Title',
+      description: 'Receipt Description',
+      amount: 200,
+      images: signedIds,
+    };
+    const createdReceipt = await api.createReceipt(receipt);
+    console.log(createdReceipt);
+  };
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -76,7 +98,8 @@ const App = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Button onPress={openImageLibrary} title="Select Photos" />
+          <Button onPress={handleSelectPhotos} title="Select Photos" />
+          <Button onPress={handleCreateReceipt} title="Create Receipt" />
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
