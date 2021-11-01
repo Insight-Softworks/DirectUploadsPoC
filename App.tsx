@@ -69,7 +69,7 @@ const App = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const [signedIds, setSignedIds] = useState();
+  const [signedIds, setSignedIds] = useState(null);
 
   const handleSelectPhotos = async () => {
     const newSignedIds = await openImageLibrary();
@@ -84,6 +84,7 @@ const App = () => {
       images: signedIds,
     };
     const createdReceipt = await api.createReceipt(receipt);
+    setSignedIds(null);
     console.log(createdReceipt);
   };
 
@@ -99,7 +100,11 @@ const App = () => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Button onPress={handleSelectPhotos} title="Select Photos" />
-          <Button onPress={handleCreateReceipt} title="Create Receipt" />
+          <Button
+            onPress={handleCreateReceipt}
+            title="Create Receipt"
+            disabled={!signedIds}
+          />
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
