@@ -76,7 +76,7 @@ const App = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Button onPress={openImageLibrary} title="Take Picture" />
+          <Button onPress={openImageLibrary} title="Select Photos" />
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
