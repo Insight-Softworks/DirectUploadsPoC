@@ -72,6 +72,7 @@ const App = () => {
   const [signedIds, setSignedIds] = useState(null);
 
   const handleSelectPhotos = async () => {
+    setSignedIds(null);
     const newSignedIds = await openImageLibrary();
     setSignedIds(newSignedIds);
   };
