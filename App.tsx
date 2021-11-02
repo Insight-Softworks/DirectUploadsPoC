@@ -28,7 +28,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import {openImageLibrary} from './src/utils/createChecksum';
+import {openCamera, openImageLibrary} from './src/utils/createChecksum';
 
 import Api from './src/services/api';
 
@@ -71,6 +71,12 @@ const App = () => {
 
   const [signedIds, setSignedIds] = useState(null);
 
+  const handleTakePhoto = async () => {
+    setSignedIds(null);
+    const newSignedIds = await openCamera();
+    setSignedIds(newSignedIds);
+  };
+
   const handleSelectPhotos = async () => {
     setSignedIds(null);
     const newSignedIds = await openImageLibrary();
@@ -84,8 +90,8 @@ const App = () => {
       amount: 200,
       images: signedIds,
     };
-    const createdReceipt = await api.createReceipt(receipt);
     setSignedIds(null);
+    const createdReceipt = await api.createReceipt(receipt);
     console.log(createdReceipt);
   };
 
@@ -100,6 +106,7 @@ const App = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
+          <Button onPress={handleTakePhoto} title="Take Photo" />
           <Button onPress={handleSelectPhotos} title="Select Photos" />
           <Button
             onPress={handleCreateReceipt}
