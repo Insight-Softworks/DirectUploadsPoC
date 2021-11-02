@@ -33,7 +33,7 @@ export const openImageLibrary = async () => {
       const hex = await RNFS.hash(r.path, 'md5');
       const base64 = Buffer.from(hex, 'hex').toString('base64');
       const blob = {
-        filename: r.filename,
+        filename: r.filename || Date.now().toString(),
         content_type: r.mime,
         byte_size: r.size,
         checksum: base64,
